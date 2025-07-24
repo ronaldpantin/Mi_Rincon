@@ -21,11 +21,11 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Configuración de EmailJS
-    const EMAILJS_SERVICE_ID = "service_outlook123" // Reemplaza con tu Service ID
-    const EMAILJS_USER_ID = "klCawWC2iKTZK88h2" // Reemplaza con tu User ID
-    const TEMPLATE_CLIENTE = "template_pnmwtyf" // Reemplaza con tu Template ID del cliente
-    const TEMPLATE_ADMIN = "template_uof3r4b" // Reemplaza con tu Template ID del admin
+    // Configuración de EmailJS - TUS CREDENCIALES REALES
+    const EMAILJS_SERVICE_ID = "service_outlook123"
+    const EMAILJS_USER_ID = "klCawWC2iKTZK88h2"
+    const TEMPLATE_CLIENTE = "template_pnmwtyf"
+    const TEMPLATE_ADMIN = "template_uof3r4b"
 
     // Preparar datos para el email del cliente
     const clientEmailData = {
@@ -38,16 +38,19 @@ export async function POST(request: NextRequest) {
         solicitud_id: solicitudId,
         fecha_visita: reservationDetails.visitDate,
         cedula: reservationDetails.bookerIdNumber,
+        cliente_email: reservationDetails.bookerEmail,
         telefono: reservationDetails.bookerPhone,
         total_personas: reservationDetails.totalPeople,
         adultos: reservationDetails.adults,
         ninos: reservationDetails.children,
         exonerados: reservationDetails.exonerated,
         areas_seleccionadas:
-          reservationDetails.selectedAreasDetails?.map((area: any) => area.name).join(", ") || "Ninguna",
+          reservationDetails.selectedAreasDetails?.map((area: any) => area.name).join(", ") || "Solo entrada general",
         total_usd: reservationDetails.totalUSD.toFixed(2),
         total_vef: reservationDetails.finalTotalVEF.toLocaleString("es-VE", { minimumFractionDigits: 2 }),
         referencia_pago: transactionReference,
+        tasa_bcv: reservationDetails.bcvRate.toFixed(4),
+        timestamp: new Date().toLocaleString("es-VE"),
       },
     }
 
@@ -68,7 +71,7 @@ export async function POST(request: NextRequest) {
         ninos: reservationDetails.children,
         exonerados: reservationDetails.exonerated,
         areas_seleccionadas:
-          reservationDetails.selectedAreasDetails?.map((area: any) => area.name).join(", ") || "Ninguna",
+          reservationDetails.selectedAreasDetails?.map((area: any) => area.name).join(", ") || "Solo entrada general",
         total_usd: reservationDetails.totalUSD.toFixed(2),
         total_vef: reservationDetails.finalTotalVEF.toLocaleString("es-VE", { minimumFractionDigits: 2 }),
         tasa_bcv: reservationDetails.bcvRate.toFixed(4),
@@ -110,7 +113,6 @@ export async function POST(request: NextRequest) {
     if (!adminResponse.ok) {
       const errorText = await adminResponse.text()
       console.error("❌ Error enviando email al administrador:", errorText)
-      // No fallar completamente si el email del admin falla
       console.log("⚠️ Continuando a pesar del error en email del admin")
     } else {
       console.log("✅ Email enviado al administrador exitosamente")

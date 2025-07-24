@@ -39,17 +39,17 @@ import {
   TableIcon as PicnicTable,
 } from "lucide-react"
 import Image from "next/image"
-import { ParkMap } from "@/components/park-map"
-import RestaurantMenu from "@/components/restaurant-menu"
-import SimpleAIAssistant from "@/components/simple-ai-assistant"
-import { ContactSection } from "@/components/contact-section"
-import ReservationSelector from "@/components/reservation-selector"
-import ReservationGeneralEntryForm from "@/components/reservation-general-entry-form"
-import SmallGroupsForm from "@/components/reservation-small-groups-form"
-import CorporateEventsForm from "@/components/reservation-corporate-events-form"
-import { PaymentFormSimple } from "@/components/payment-form-simple"
-import { PaymentPending } from "@/components/payment-pending"
-import FaqSection from "@/components/faq-section"
+import { ParkMap } from "../park-map"
+import RestaurantMenu from "../restaurant-menu"
+import SimpleAIAssistant from "../simple-ai-assistant"
+import { ContactSection } from "../contact-section"
+import ReservationSelector from "../reservation-selector"
+import ReservationGeneralEntryForm from "../reservation-general-entry-form"
+import SmallGroupsForm from "../reservation-small-groups-form"
+import CorporateEventsForm from "../reservation-corporate-events-form"
+import { PaymentFormSimple } from "../payment-form-simple"
+import { PaymentPending } from "../payment-pending"
+import FaqSection from "../faq-section"
 
 interface HomeProps {
   setActiveSection: (section: string) => void
